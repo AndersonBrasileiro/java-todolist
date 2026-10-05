@@ -1,6 +1,7 @@
 package br.com.todolist.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import br.com.todolist.model.StatusTarefa;
@@ -15,7 +16,7 @@ public class ListaDeTarefas {
     }
 
     public List<Tarefa> listarTarefas() {
-        return tarefas;
+        return Collections.unmodifiableList(tarefas);
     }
 
     public Tarefa buscarPorDescricao(String descricao) {
