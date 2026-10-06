@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import br.com.todolist.model.StatusTarefa;
 import br.com.todolist.model.Tarefa;
+import br.com.todolist.repository.TarefaRepositoryMemoria;
 import br.com.todolist.service.ListaDeTarefas;
 
 public class ListaDeTarefasTest {
@@ -15,7 +16,7 @@ public class ListaDeTarefasTest {
     @Test
     void deveAdicionarTarefasNaLista() {
 
-        ListaDeTarefas lista = new ListaDeTarefas();
+        ListaDeTarefas lista = new ListaDeTarefas(new TarefaRepositoryMemoria());
 
         Tarefa tarefa1 = new Tarefa("Estudar Java");
         Tarefa tarefa2 = new Tarefa("Praticar JUnit");
@@ -31,7 +32,7 @@ public class ListaDeTarefasTest {
     @Test
     void deveEncontrarTarefaPelaDescricao() {
 
-        ListaDeTarefas lista = new ListaDeTarefas();
+        ListaDeTarefas lista = new ListaDeTarefas(new TarefaRepositoryMemoria());
 
         Tarefa tarefa = new Tarefa("Estudar Java");
         lista.adicionarTarefa(tarefa);
@@ -45,7 +46,7 @@ public class ListaDeTarefasTest {
 
     void deveRetornarNullQuandoTarefaNaoForEncontrada() {
 
-        ListaDeTarefas lista = new ListaDeTarefas();
+        ListaDeTarefas lista = new ListaDeTarefas(new TarefaRepositoryMemoria());
 
         lista.adicionarTarefa(new Tarefa("Estudar Java"));
 
@@ -57,7 +58,7 @@ public class ListaDeTarefasTest {
     @Test
     void deveRemoverTarefaDaLista() {
 
-        ListaDeTarefas lista = new ListaDeTarefas();
+        ListaDeTarefas lista = new ListaDeTarefas(new TarefaRepositoryMemoria());
 
         Tarefa tarefa = new Tarefa("Estudar Java");
         lista.adicionarTarefa(tarefa);
@@ -70,7 +71,7 @@ public class ListaDeTarefasTest {
     @Test
     void deveListarTarefasPorStatus() {
 
-        ListaDeTarefas lista = new ListaDeTarefas();
+        ListaDeTarefas lista = new ListaDeTarefas(new TarefaRepositoryMemoria());
 
         Tarefa tarefa1 = new Tarefa("Estudar Java");
         Tarefa tarefa2 = new Tarefa("Praticar JUnit");
@@ -90,21 +91,21 @@ public class ListaDeTarefasTest {
     }
 
     @Test
-void deveContarTarefasConcluidas() {
+    void deveContarTarefasConcluidas() {
 
-    ListaDeTarefas lista = new ListaDeTarefas();
+        ListaDeTarefas lista = new ListaDeTarefas(new TarefaRepositoryMemoria());
 
-    Tarefa tarefa1 = new Tarefa("Estudar Java");
-    Tarefa tarefa2 = new Tarefa("Praticar JUnit");
-    Tarefa tarefa3 = new Tarefa("Estudar Spring");
+        Tarefa tarefa1 = new Tarefa("Estudar Java");
+        Tarefa tarefa2 = new Tarefa("Praticar JUnit");
+        Tarefa tarefa3 = new Tarefa("Estudar Spring");
 
-    lista.adicionarTarefa(tarefa1);
-    lista.adicionarTarefa(tarefa2);
-    lista.adicionarTarefa(tarefa3);
+        lista.adicionarTarefa(tarefa1);
+        lista.adicionarTarefa(tarefa2);
+        lista.adicionarTarefa(tarefa3);
 
-    tarefa1.concluir();
-    tarefa2.concluir();
+        tarefa1.concluir();
+        tarefa2.concluir();
 
-    assertEquals(2, lista.contarConcluidas());
-}
+        assertEquals(2, lista.contarConcluidas());
+    }
 }

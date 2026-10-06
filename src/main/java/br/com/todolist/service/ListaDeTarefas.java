@@ -1,26 +1,30 @@
 package br.com.todolist.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import br.com.todolist.model.StatusTarefa;
 import br.com.todolist.model.Tarefa;
+import br.com.todolist.repository.TarefaRepository;
 
 public class ListaDeTarefas {
 
-    private List<Tarefa> tarefas = new ArrayList<>();
+    private TarefaRepository repository;
+
+    public ListaDeTarefas(TarefaRepository repository) {
+        this.repository = repository;
+    }
 
     public void adicionarTarefa(Tarefa tarefa) {
-        tarefas.add(tarefa);
+        repository.adicionar(tarefa);
     }
 
     public List<Tarefa> listarTarefas() {
-        return Collections.unmodifiableList(tarefas);
+        return repository.listar();
     }
 
     public Tarefa buscarPorDescricao(String descricao) {
-        for (Tarefa tarefa : tarefas) {
+        for (Tarefa tarefa : repository.listar()) {
             if (descricao.equals(tarefa.getDescricao())) {
                 return tarefa;
             }
@@ -30,13 +34,13 @@ public class ListaDeTarefas {
     }
 
     public void removerTarefa(Tarefa tarefa) {
-        tarefas.remove(tarefa);
+        repository.remover(tarefa);
     }
 
     public List<Tarefa> listarPorStatus(StatusTarefa status) {
         List<Tarefa> resultado = new ArrayList<>();
 
-        for (Tarefa tarefa : tarefas) {
+        for (Tarefa tarefa : repository.listar()) {
             if (tarefa.getStatus() == status) {
                 resultado.add(tarefa);
             }
@@ -48,7 +52,7 @@ public class ListaDeTarefas {
     public int contarConcluidas() {
         int quantidade = 0;
 
-        for (Tarefa tarefa : tarefas) {
+        for (Tarefa tarefa : repository.listar()) {
             if (tarefa.getStatus() == StatusTarefa.CONCLUIDA) {
                 quantidade++;
             }
